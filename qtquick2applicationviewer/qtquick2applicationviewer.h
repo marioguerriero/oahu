@@ -13,6 +13,7 @@
 
 #include <QtQuick/QQuickView>
 #include <QtWidgets/QFileDialog>
+#include <QQuickItem>
 #include <QDebug>
 #include <QString>
 
@@ -34,10 +35,15 @@ private:
 
 public slots:
     void onOpenClicked() {
-        //QString fileName = QFileDialog::getOpenFileName();
-        //qDebug() << "Opening: " << fileName;
-        //setSource(fileName);
+        QString fileName = QFileDialog::getOpenFileName(0, tr("Open Video"),
+                                                        "/home",
+                                                        tr("Video (*.webm *.mp4 *.mpg)"));
 
+        if (fileName != NULL) {
+            qDebug() << "Opening: " << fileName;
+            // TODO: it's not too elegant to use "'file://' + path", find a better solution
+            (QObject*)rootObject()->setProperty("videoSource", "file://" + fileName);
+        }
     }
 };
 

@@ -5,7 +5,10 @@ Rectangle {
     id: window
     width: 360
     height: 360
+    // Properties
+    property alias videoSource: video.source
 
+    // Signals
     signal openClicked()
 
     Rectangle {

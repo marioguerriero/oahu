@@ -6,7 +6,7 @@ Video {
     width: 300
     height: 262
 
-    source: "/home/mario/Video/laceno1.mpg"
+    autoPlay: true
 
     MouseArea {
         anchors.fill: parent
@@ -17,9 +17,14 @@ Video {
                 play()
         }
     }
+
     focus: true
     Keys.onSpacePressed: video.paused = !video.paused
     Keys.onLeftPressed: video.position -= 5000
     Keys.onRightPressed: video.position += 5000
 
+    function setSource(s) {
+        pause()
+        source: s
+    }
 }
