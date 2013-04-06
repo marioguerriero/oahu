@@ -3,8 +3,8 @@ import QtMultimedia 5.0
 
 Rectangle {
     id: window
-    width: 360
-    height: 360
+    width: 500
+    height: 400
     // Properties
     property alias videoSource: video.source
 
@@ -13,49 +13,52 @@ Rectangle {
 
     Rectangle {
         id: box
-        x: 0
-        y: 0
-        width: 381
-        height: 360
         anchors.fill: parent
 
         color: "white"
-        anchors.bottomMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        anchors.rightMargin: -21
 
         Rectangle {
             id: rectangle2
-            width: window.width - 15
-            height: window.height - 15
-            //border.width: 5
+            x: 0
+            y: 0
             color: "black"
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
             anchors.fill: parent
+            border.color: "white"
+            border.width: 5
             VideoWidget {
                 id:video
-                anchors.bottomMargin: 50
                 anchors.fill: parent
-                onPositionChanged: slider.setValue(position/1000/100*0.1)
+                onPositionChanged: {
+                    slider.max = duration
+                    slider.setValue(position)
+                }
             }
         }
 
         Rectangle {
             id: rectangle1
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 50
+            y: 325
+            height: 75
 
             color: "white"
+            anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
             border.color: "white"
-            border.width: 5
+            border.width: 0
 
             // Populate with backward, play/pause and forward buttons
             RoundedButton {
                 id: back
                 x: 6
-                y: 13
+                y: 26
                 text: "B"
                 width: 25
                 height: 25
@@ -66,7 +69,10 @@ Rectangle {
             }
             RoundedButton {
                 id: play
+                x: 36
+                y: 14
                 text: "P"
+                anchors.leftMargin: 5
                 width: 50
                 height: 50
                 anchors.left: back.right
@@ -80,9 +86,10 @@ Rectangle {
             }
             RoundedButton {
                 id: next
-                x: 75
-                y: 13
+                x: 86
+                y: 26
                 text: "N"
+                anchors.leftMargin: 5
                 width: 25
                 height: 25
                 anchors.left: play.right
@@ -93,16 +100,14 @@ Rectangle {
             // Slider
             Slider {
                 id: slider
-                x: 112
-                y: 14
-                width: 194
-                height: 24
-                anchors.verticalCenterOffset: 1
-                value: 0
-                transformOrigin: Item.Center
-                anchors.verticalCenter: parent.verticalCenter
+                x: 109
+                y: 26
+                width: 325
+                height: 25
+                anchors.rightMargin: 6
                 // Use higher spacing between button and slider
                 anchors.left: next.right
+                anchors.right: open.left
 
                 onPositionChanged: {
                     //video.position += 500 //value/0.1*100*1000
@@ -110,14 +115,15 @@ Rectangle {
             }
             RoundedButton {
                 id: open
-                x: 310
-                y: 1
+                x: 456
+                y: 14
                 text: "O"
-                anchors.leftMargin: 2
+                paused: true
                 width: 50
                 height: 50
                 // Use higher spacing between button and slider
-                anchors.left: slider.right
+                //anchors.left: slider.right
+                anchors.right: parent.right
 
                 // Open function
                 onButtonClick: {

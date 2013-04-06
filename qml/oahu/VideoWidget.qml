@@ -3,10 +3,9 @@ import QtMultimedia 5.0
 
 Video {
     id: video
-    width: 300
-    height: 262
 
     autoPlay: true
+    fillMode: VideoOutput.Stretch
 
     MouseArea {
         anchors.fill: parent
