@@ -10,6 +10,11 @@ Rectangle {
 
     // Signals
     signal openClicked()
+    signal urlClicked()
+    signal settingsClicked()
+    signal equalizerClicked()
+    signal subtitlesClicked()
+    signal playlistClicked()
 
     Rectangle {
         id: box
@@ -22,10 +27,6 @@ Rectangle {
             x: 0
             y: 0
             color: "black"
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
             anchors.fill: parent
             border.color: "white"
             border.width: 5
@@ -62,7 +63,6 @@ Rectangle {
                 text: "B"
                 width: 25
                 height: 25
-                anchors.left: text.right
                 onButtonHold: {
                     video.position -= 5000
                 }
@@ -107,28 +107,20 @@ Rectangle {
                 anchors.rightMargin: 6
                 // Use higher spacing between button and slider
                 anchors.left: next.right
-                anchors.right: open.left
+                anchors.right: buttonGrid.left
 
                 onPositionChanged: {
                     //video.position += 500 //value/0.1*100*1000
                 }
             }
-            RoundedButton {
-                id: open
-                x: 456
+            ButtonGrid {
+                id: buttonGrid
+                x: 409
                 y: 14
-                text: "O"
-                paused: true
-                width: 50
-                height: 50
-                // Use higher spacing between button and slider
-                //anchors.left: slider.right
+                width: 85
+                height: 55
+                anchors.rightMargin: 6
                 anchors.right: parent.right
-
-                // Open function
-                onButtonClick: {
-                    openClicked()
-                }
             }
         }
     }

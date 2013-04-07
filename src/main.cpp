@@ -9,7 +9,9 @@ int main(int argc, char *argv[])
     viewer.setMainQmlFile(QStringLiteral("qml/oahu/main.qml"));
     viewer.showExpanded();
 
+    // Slots
     QObject::connect((QObject*)viewer.rootObject(), SIGNAL(openClicked()), &viewer, SLOT(onOpenClicked()));
+    QObject::connect((QObject*)viewer.rootObject(), SIGNAL(urlClicked()), &viewer, SLOT(onUrlClicked()));
 
     return app.exec();
 }
